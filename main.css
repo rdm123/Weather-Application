@@ -6,7 +6,7 @@
 
 body {
   font-family: 'montserrat', sans-serif;
-  background-image:src('istockphoto-531889697-170667a.jpg');
+  background-image:url('istockphoto-531889697-170667a.jpg');
    background-size:cover; 
   background-position: top center;
 }
