@@ -1,4 +1,4 @@
-# Weather_Application
+# Weather-Application
 A weather application to find the current weather status of any city.
 
 
