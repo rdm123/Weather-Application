@@ -6,5 +6,5 @@ A weather application to find the current weather status of any city.
 ENTER A VALID NAME OF ANY CITY THEN PRESS 'enter' FROM KEYBOARD
 THEN IT WILL SHOW THE CURRENT WEATHER STATUS OF THAT CITY..
 <br>
-<a href="https://rdm123.github.io/Weather-Application/">Click Here to see Demo</a>
+<pre>to see Demo<a href="https://rdm123.github.io/Weather-Application/"> click Here </a></pre>
 
