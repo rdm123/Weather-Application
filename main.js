@@ -12,14 +12,21 @@ function setQuery(evt) {
   }
 }
 
-function getResults (query) {
+function getResults(query) {
   fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-    .then(weather => {
-      return weather.json();
-    }).then(displayResults);
+    .then(weather => weather.json())
+    .then(displayResults)
+    .catch(err => console.log("Error fetching weather:", err));
 }
 
-function displayResults (weather) {
+// Function specifically for Geolocation (Lat/Lon)
+function getResultsByCoords(lat, lon) {
+  fetch(`${api.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${api.key}`)
+    .then(weather => weather.json())
+    .then(displayResults);
+}
+
+function displayResults(weather) {
   let city = document.querySelector('.location .city');
   city.innerText = `${weather.name}, ${weather.sys.country}`;
 
@@ -37,7 +44,7 @@ function displayResults (weather) {
   hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
 }
 
-function dateBuilder (d) {
+function dateBuilder(d) {
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -48,3 +55,19 @@ function dateBuilder (d) {
 
   return `${day} ${date} ${month} ${year}`;
 }
+
+// --- NEW CODE: Initialize App on Launch ---
+window.addEventListener('load', () => {
+  // Try to get user's current location automatically
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      getResultsByCoords(position.coords.latitude, position.coords.longitude);
+    }, (error) => {
+      // If user denies location, load a default city
+      getResults("Kolkata");
+    });
+  } else {
+    // Geolocation not supported, load default
+    getResults("Kolkata");
+  }
+});
